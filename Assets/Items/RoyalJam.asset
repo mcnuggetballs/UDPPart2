@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
+  m_Name: RoyalJam
+  m_EditorClassIdentifier: 
+  questItem: 0
+  itemName: Royal Jam
+  itemDesc: A luxurious blend of enchanted berries and golden honey. Said to restore
+    strength and spirit with just a spoonful.
+  itemStatBonus: +30 HP_-Removes Poison
+  itemImage: {fileID: 21300000, guid: 1bf78e7f8668af646b8e93c7ae5ce7fc, type: 3}
+  quantity: 0
+  cost: 120
+  sellPrice: 60

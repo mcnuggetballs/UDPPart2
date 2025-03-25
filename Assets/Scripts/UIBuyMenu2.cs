@@ -1,0 +1,532 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+using System;
+[System.Serializable]
+public class Slot
+{
+    public bool inventorySlot = false;
+    private bool isSelected = false;
+    public int slotIndex = -1;
+    public Button itemButton = null;
+    public VisualElement itemImage = null;
+    public Label quantityText = null;
+
+    public bool IsSelected
+    {
+        get
+        {
+            return isSelected;
+        }
+
+        set
+        {
+            isSelected = value;
+        }
+    }
+}
+public class UIBuyMenu2 : Page
+{
+    public Dictionary<int, Slot> slotList = new Dictionary<int, Slot>();
+    public List<Slot> shopSlots = new List<Slot>();
+    public List<Slot> invSlots = new List<Slot>();
+
+
+    public VisualElement ItemImage = null;
+    public Label ItemName = null;
+    public Label ItemDesc = null;
+    public Label ItemQuantity = null;
+    public Button QuantityRButton = null;
+    public Button QuantityLButton = null;
+    public Button BuyOrSellButton = null;
+    public Label TotalCost = null;
+    public Label MyMoney = null;
+    public Label ItemStatDesc = null;
+
+    public int selectedIndex = 0;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
+    {
+        _root = doc.rootVisualElement;
+        int index = 1;
+        bool finished = false;
+        while (finished == false)
+        {
+            Slot newSlot = new Slot();
+            newSlot.inventorySlot = false;
+            newSlot.itemButton = _root.Q<Button>("Slot" + index.ToString());
+            newSlot.itemImage = _root.Q<VisualElement>("Slot" + index.ToString() + "Item");
+            newSlot.quantityText = _root.Q<Label>("Slot" + index.ToString() + "Quantity");
+            if (newSlot.itemButton == null)
+            {
+                finished = true;
+                break;
+            }
+            newSlot.slotIndex = index-1;
+            shopSlots.Add(newSlot);
+            slotList.Add(slotList.Count,newSlot);
+            ++index;
+        }
+        finished = false;
+        index = 1;
+
+        while (finished == false)
+        {
+            Slot newSlot = new Slot();
+            newSlot.inventorySlot = true;
+            newSlot.itemButton = _root.Q<Button>("InvSlot" + index.ToString());
+            newSlot.itemImage = _root.Q<VisualElement>("InvSlot" + index.ToString() + "Item");
+            newSlot.quantityText = _root.Q<Label>("InvSlot" + index.ToString() + "Quantity");
+            if (newSlot.itemButton == null)
+            {
+                Debug.LogError("InvSlot" + index.ToString());
+                finished = true;
+                break;
+            }
+            newSlot.slotIndex = index - 1;
+            slotList.Add(slotList.Count, newSlot);
+            invSlots.Add(newSlot);
+            ++index;
+        }
+
+        ItemImage = _root.Q<VisualElement>("ItemImage");
+        ItemName = _root.Q<Label>("ItemName");
+        ItemDesc = _root.Q<Label>("ItemDesc");
+        ItemQuantity = _root.Q<Label>("ItemQuantity");
+        QuantityRButton = _root.Q<Button>("QuantityRButton");
+        QuantityLButton = _root.Q<Button>("QuantityLButton");
+        BuyOrSellButton = _root.Q<Button>("BuyOrSellButton");
+        TotalCost = _root.Q<Label>("TotalCost");
+        MyMoney = _root.Q<Label>("MyMoney");
+        ItemStatDesc = _root.Q<Label>("ItemStatDesc");
+
+        HighlightButton(slotList[selectedIndex].itemButton);
+
+    }
+    void NextIndex()
+    {
+        if (selectedIndex + 1 >= slotList.Count)
+        {
+            return;
+        }
+        DehighlightButton(slotList[selectedIndex].itemButton);
+        ++selectedIndex;
+        HighlightButton(slotList[selectedIndex].itemButton);
+
+        DescPanelUpdate();
+    }
+    void BackIndex()
+    {
+        if (selectedIndex - 1 < 0)
+        {
+            return;
+        }
+        DehighlightButton(slotList[selectedIndex].itemButton);
+        --selectedIndex;
+        HighlightButton(slotList[selectedIndex].itemButton);
+
+        DescPanelUpdate();
+    }
+
+    void DownIndex()
+    {
+        if (selectedIndex + 7 >= slotList.Count)
+        {
+            return;
+        }
+        if (slotList[selectedIndex].inventorySlot == true)
+            return;
+        DehighlightButton(slotList[selectedIndex].itemButton);
+        selectedIndex += 7;
+        HighlightButton(slotList[selectedIndex].itemButton);
+
+        DescPanelUpdate();
+    }
+    void UpIndex()
+    {
+        if (selectedIndex - 7 < 0)
+        {
+            return;
+        }
+        if (selectedIndex - 7 >= shopSlots.Count)
+        {
+            DehighlightButton(slotList[selectedIndex].itemButton);
+            selectedIndex = shopSlots.Count-1;
+        }
+        else
+        {
+            DehighlightButton(slotList[selectedIndex].itemButton);
+            selectedIndex -= 7;
+        }
+        HighlightButton(slotList[selectedIndex].itemButton);
+
+        DescPanelUpdate();
+    }
+    void HighlightButton(Button theButton)
+    {
+        theButton.style.borderBottomColor = Color.yellow;
+        theButton.style.borderTopColor = Color.yellow;
+        theButton.style.borderLeftColor = Color.yellow;
+        theButton.style.borderRightColor = Color.yellow;
+    }
+
+    void DehighlightButton(Button theButton)
+    {
+        theButton.style.borderBottomColor = Color.white;
+        theButton.style.borderTopColor = Color.white;
+        theButton.style.borderLeftColor = Color.white;
+        theButton.style.borderRightColor = Color.white;
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void ControllerUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            NextIndex();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            BackIndex();
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            UpIndex();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            DownIndex();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+            Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+            if (theShopSlot != null)
+            {
+                Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                if (theItem != null)
+                {
+                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                    if (currentQuantity + 1 <= theItem.GetQuantity())
+                    {
+                        ++currentQuantity;
+                        ItemQuantity.text = currentQuantity.ToString();
+                    }
+                }
+            }
+            if (theInvSlot != null)
+            {
+                Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                if (theItem != null)
+                {
+                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                    if (currentQuantity + 1 <= theItem.GetQuantity())
+                    {
+                        ++currentQuantity;
+                        ItemQuantity.text = currentQuantity.ToString();
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+            Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+            if (theShopSlot != null)
+            {
+                Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                if (theItem != null)
+                {
+                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                    if (currentQuantity - 1 >= 1)
+                    {
+                        --currentQuantity;
+                        ItemQuantity.text = currentQuantity.ToString();
+                    }
+                }
+            }
+            if (theInvSlot != null)
+            {
+                Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                if (theItem != null)
+                {
+                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                    if (currentQuantity - 1 >= 1)
+                    {
+                        --currentQuantity;
+                        ItemQuantity.text = currentQuantity.ToString();
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+            Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+            if (theShopSlot != null)
+            {
+                if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
+                {
+                    Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                    if (theItem != null)
+                    {
+                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                        int totalCost = currentQuantity * theItem.cost;
+                        if (GameManager.Instance.myMoney >= totalCost)
+                        {
+                            GameManager.Instance.myMoney -= totalCost;
+                            GameManager.Instance.myInventory.AddToInventory(theItem, currentQuantity);
+                            GameManager.Instance.shopInventory.RemoveFromInventory(theItem, currentQuantity);
+                            DescPanelUpdate();
+
+                            if (GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex] != null)
+                            {
+                                if (currentQuantity > GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex].GetQuantity())
+                                {
+                                    currentQuantity = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex].GetQuantity();
+                                    ItemQuantity.text = currentQuantity.ToString();
+                                }
+                            }
+                            else
+                            {
+                                ItemQuantity.text = "0";
+                            }
+                        }
+                    }
+                }
+            }
+            if (theInvSlot != null)
+            {
+                if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+                {
+                    Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                    if (theItem != null && theItem.questItem == false)
+                    {
+                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                        int totalCost = currentQuantity * theItem.sellPrice;
+                        GameManager.Instance.myMoney += totalCost;
+                        GameManager.Instance.shopInventory.AddToInventory(theItem, currentQuantity);
+                        GameManager.Instance.myInventory.RemoveFromInventory(theItem, currentQuantity);
+                        DescPanelUpdate();
+
+                        if (GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex] != null)
+                        {
+                            if (currentQuantity > GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex].GetQuantity())
+                            {
+                                currentQuantity = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex].GetQuantity();
+                                ItemQuantity.text = currentQuantity.ToString();
+                            }
+                        }
+                        else
+                        {
+                            ItemQuantity.text = "0";
+                        }
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            UIManager.Instance.SetCurrentPage(UIManager.Instance._optionsPage);
+        }
+    }
+    void TotalCostUpdate()
+    {
+        Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+        Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+        if (theShopSlot != null)
+        {
+            BuyOrSellButton.text = "Buy(A)";
+            if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
+            {
+                Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                if (theItem != null)
+                {
+                    ItemImage.style.backgroundImage = new StyleBackground(theItem.GetItemImage());
+                    ItemName.text = theItem.itemName;
+                    ItemDesc.text = theItem.itemDesc;
+                    TotalCost.text = (theItem.cost * Convert.ToInt32(ItemQuantity.text)).ToString() + "g";
+
+
+                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                    int totalCost = currentQuantity * theItem.cost;
+
+                    if (GameManager.Instance.myMoney >= totalCost)
+                    {
+                        BuyOrSellButton.style.backgroundColor = Color.white;
+                    }
+                    else
+                    {
+                        BuyOrSellButton.style.backgroundColor = Color.grey;
+                    }
+                }
+                else
+                {
+                    ItemImage.style.backgroundImage = null;
+                    ItemName.text = "No Item";
+                    ItemDesc.text = "";
+                    TotalCost.text = "0g";
+                    BuyOrSellButton.style.backgroundColor = Color.grey;
+                }
+            }
+            else
+            {
+                BuyOrSellButton.style.backgroundColor = Color.grey;
+            }
+        }
+        else if (theInvSlot != null)
+        {
+            BuyOrSellButton.text = "Sell(A)";
+            if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+            {
+                Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                if (theItem != null)
+                {
+                    ItemImage.style.backgroundImage = new StyleBackground(theItem.GetItemImage());
+                    ItemName.text = theItem.itemName;
+                    ItemDesc.text = theItem.itemDesc;
+                    TotalCost.text = (theItem.sellPrice * Convert.ToInt32(ItemQuantity.text)).ToString() + "g";
+
+                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                    int totalCost = currentQuantity * theItem.cost;
+
+                    if (theItem.questItem == false)
+                    {
+                        BuyOrSellButton.style.backgroundColor = Color.white;
+                    }
+                    else
+                    {
+                        BuyOrSellButton.style.backgroundColor = Color.grey;
+                    }
+                }
+                else
+                {
+                    ItemImage.style.backgroundImage = null;
+                    ItemName.text = "No Item";
+                    ItemDesc.text = "";
+                    TotalCost.text = "0g";
+                    BuyOrSellButton.style.backgroundColor = Color.grey;
+                }
+            }
+            else
+            {
+                BuyOrSellButton.style.backgroundColor = Color.grey;
+            }
+        }
+        else
+        {
+            BuyOrSellButton.style.backgroundColor = Color.grey;
+        }
+    }
+    void DescPanelUpdate()
+    {
+        bool hasItem = false;
+        Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+        Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+        if (theShopSlot != null)
+        {
+            if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
+            {
+                Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                if (theItem != null)
+                {
+                    ItemImage.style.backgroundImage = new StyleBackground(theItem.GetItemImage());
+                    ItemName.text = theItem.itemName;
+                    ItemDesc.text = theItem.itemDesc;
+                    string[] statArray = theItem.itemStatBonus.Split('_');
+                    ItemStatDesc.text = "";
+                    foreach (string stat in statArray)
+                    {
+                        ItemStatDesc.text += stat;
+                        ItemStatDesc.text += '\n';
+                    }
+                    ItemQuantity.text = "1";
+                    hasItem = true;
+                }
+            }
+        }
+        else if (theInvSlot != null)
+        {
+            if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+            {
+                Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                if (theItem != null)
+                {
+                    ItemImage.style.backgroundImage = new StyleBackground(theItem.GetItemImage());
+                    ItemName.text = theItem.itemName;
+                    ItemDesc.text = theItem.itemDesc;
+                    string[] statArray = theItem.itemStatBonus.Split('_');
+                    ItemStatDesc.text = "";
+                    foreach (string stat in statArray)
+                    {
+                        ItemStatDesc.text += stat;
+                        ItemStatDesc.text += '\n';
+                    }
+                    ItemQuantity.text = "1";
+                    hasItem = true;
+                }
+            }
+        }
+        if (hasItem == false)
+        {
+            ItemImage.style.backgroundImage = null;
+            ItemName.text = "";
+            ItemDesc.text = "";
+            ItemStatDesc.text = "";
+            ItemQuantity.text = "1";
+            TotalCost.text = "0g";
+        }
+    }
+    void ShopSlotUpdate()
+    {
+        for (int i = 0; i < shopSlots.Count; ++i)
+        {
+            if (GameManager.Instance.shopInventory.GetItemList().Count <= i)
+                return;
+            Slot shopSlot = shopSlots[i];
+            if (GameManager.Instance.shopInventory.GetItemList()[i] != null)
+            {
+                shopSlot.itemImage.style.backgroundImage = new StyleBackground(GameManager.Instance.shopInventory.GetItemList()[i].GetItemImage());
+                shopSlot.quantityText.text = GameManager.Instance.shopInventory.GetItemList()[i].GetQuantity().ToString();
+            }
+            else
+            {
+                shopSlot.itemImage.style.backgroundImage = null;
+                shopSlot.quantityText.text = "0";
+            }
+        }
+    }
+
+    void InventorySlotUpdate()
+    {
+        for (int i = 0; i < invSlots.Count; ++i)
+        {
+            if (GameManager.Instance.myInventory.GetItemList().Count <= i)
+                return;
+            Slot invSlot = invSlots[i];
+            if (GameManager.Instance.myInventory.GetItemList()[i] != null)
+            {
+                invSlot.itemImage.style.backgroundImage = new StyleBackground(GameManager.Instance.myInventory.GetItemList()[i].GetItemImage());
+                invSlot.quantityText.text = GameManager.Instance.myInventory.GetItemList()[i].GetQuantity().ToString();
+            }
+            else
+            {
+                invSlot.itemImage.style.backgroundImage = null;
+                invSlot.quantityText.text = "0";
+            }
+        }
+    }
+
+    public override void UpdateControls()
+    {
+        ShopSlotUpdate();
+        InventorySlotUpdate();
+        ControllerUpdate();
+        TotalCostUpdate();
+        MyMoney.text = GameManager.Instance.myMoney.ToString() + "g";
+    }
+}
