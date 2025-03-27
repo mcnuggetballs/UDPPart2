@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: MidgeMallet
   m_EditorClassIdentifier: 
-  questItem: 0
+  questItem: 1
   itemName: Midge Mallet
   itemDesc: A comically oversized rubber mallet used to squash magical midges and
     other pesky nuisances.
-  itemStatBonus: +20 DMG_+20 Max HP
+  itemStatBonus: -Restricted Item_+20 DMG_+20 Max HP
   itemImage: {fileID: 21300000, guid: 212511b0e86dede45a3d80b9e72418ea, type: 3}
   quantity: 0
-  cost: 120
-  sellPrice: 60
+  cost: 0
+  sellPrice: 0

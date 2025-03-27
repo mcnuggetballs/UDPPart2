@@ -660,24 +660,28 @@ MonoBehaviour:
   shopList:
   - theItem: {fileID: 11400000, guid: add1b650726951a47bb336ba97450756, type: 2}
     amount: 5
-  - theItem: {fileID: 11400000, guid: 2d137aa03d49f4840a93390c74504577, type: 2}
-    amount: 5
   - theItem: {fileID: 11400000, guid: 39062d5c067d5794f9b8daf77b9ca036, type: 2}
     amount: 5
+  - theItem: {fileID: 11400000, guid: 2d137aa03d49f4840a93390c74504577, type: 2}
+    amount: 5
+  - theItem: {fileID: 11400000, guid: e3acc4f7966757940a7e2d7b7bb319d2, type: 2}
+    amount: 3
   - theItem: {fileID: 11400000, guid: 4c5ac7d7e561c3b41a9003bc665be5b8, type: 2}
     amount: 3
-  - theItem: {fileID: 11400000, guid: 859fa856f80066f4c85b0969c2aa408c, type: 2}
-    amount: 1
-  - theItem: {fileID: 11400000, guid: 0fd704adcfda7ab4d8879a8bb4c85ba5, type: 2}
-    amount: 3
-  - theItem: {fileID: 11400000, guid: 0aa84ab4bf8873a4eb90a9b0cf433fa2, type: 2}
-    amount: 1
   - theItem: {fileID: 11400000, guid: f2f594eea513e6c49bcdc9d88658a0e8, type: 2}
     amount: 5
   inventoryList:
+  - theItem: {fileID: 11400000, guid: add1b650726951a47bb336ba97450756, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: 94471cdf0926b20409f2ebcb5d750daf, type: 2}
+    amount: 1
   - theItem: {fileID: 11400000, guid: e3acc4f7966757940a7e2d7b7bb319d2, type: 2}
     amount: 2
-  - theItem: {fileID: 11400000, guid: 94471cdf0926b20409f2ebcb5d750daf, type: 2}
+  - theItem: {fileID: 11400000, guid: 0fd704adcfda7ab4d8879a8bb4c85ba5, type: 2}
+    amount: 1
+  - theItem: {fileID: 11400000, guid: 859fa856f80066f4c85b0969c2aa408c, type: 2}
+    amount: 1
+  - theItem: {fileID: 11400000, guid: 0aa84ab4bf8873a4eb90a9b0cf433fa2, type: 2}
     amount: 1
 --- !u!4 &1405312518
 Transform:

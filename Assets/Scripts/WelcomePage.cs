@@ -8,7 +8,7 @@ public class WelcomePage : Page
     }
     public override void UpdateControls()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.L))
             UIManager.Instance.SetCurrentPage(UIManager.Instance._optionsPage);
     }
 }

@@ -185,49 +185,55 @@ public class UIBuyMenu2 : Page
 
     void ControllerUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             NextIndex();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             BackIndex();
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             UpIndex();
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             DownIndex();
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
             Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
             if (theShopSlot != null)
             {
-                Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
-                if (theItem != null)
+                if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
                 {
-                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                    if (currentQuantity + 1 <= theItem.GetQuantity())
+                    Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                    if (theItem != null)
                     {
-                        ++currentQuantity;
-                        ItemQuantity.text = currentQuantity.ToString();
+                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                        if (currentQuantity + 1 <= theItem.GetQuantity())
+                        {
+                            ++currentQuantity;
+                            ItemQuantity.text = currentQuantity.ToString();
+                        }
                     }
                 }
             }
             if (theInvSlot != null)
             {
-                Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
-                if (theItem != null)
+                if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
                 {
-                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                    if (currentQuantity + 1 <= theItem.GetQuantity())
+                    Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                    if (theItem != null)
                     {
-                        ++currentQuantity;
-                        ItemQuantity.text = currentQuantity.ToString();
+                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                        if (currentQuantity + 1 <= theItem.GetQuantity())
+                        {
+                            ++currentQuantity;
+                            ItemQuantity.text = currentQuantity.ToString();
+                        }
                     }
                 }
             }
@@ -238,32 +244,38 @@ public class UIBuyMenu2 : Page
             Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
             if (theShopSlot != null)
             {
-                Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
-                if (theItem != null)
+                if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
                 {
-                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                    if (currentQuantity - 1 >= 1)
+                    Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                    if (theItem != null)
                     {
-                        --currentQuantity;
-                        ItemQuantity.text = currentQuantity.ToString();
+                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                        if (currentQuantity - 1 >= 1)
+                        {
+                            --currentQuantity;
+                            ItemQuantity.text = currentQuantity.ToString();
+                        }
                     }
                 }
             }
             if (theInvSlot != null)
             {
-                Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
-                if (theItem != null)
+                if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
                 {
-                    int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                    if (currentQuantity - 1 >= 1)
+                    Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                    if (theItem != null)
                     {
-                        --currentQuantity;
-                        ItemQuantity.text = currentQuantity.ToString();
+                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                        if (currentQuantity - 1 >= 1)
+                        {
+                            --currentQuantity;
+                            ItemQuantity.text = currentQuantity.ToString();
+                        }
                     }
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
             Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
@@ -329,7 +341,7 @@ public class UIBuyMenu2 : Page
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             UIManager.Instance.SetCurrentPage(UIManager.Instance._optionsPage);
         }

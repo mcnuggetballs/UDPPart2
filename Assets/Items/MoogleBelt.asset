@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: MoogleBelt
   m_EditorClassIdentifier: 
+  questItem: 1
   itemName: Moggle Belt
   itemDesc: A fluffy belt said to be crafted by moogle artisans. Wearing it fills
     the wearer with cheer and lightness of step.
-  itemStatBonus: +5% Evasion_+2 Agility
+  itemStatBonus: -Restricted Item_+5% Evasion_+2 Agility
   itemImage: {fileID: 21300000, guid: 8c09ad577b2d5f44e94c9d6e6947b355, type: 3}
   quantity: 0
-  cost: 400
-  sellPrice: 200
+  cost: 0
+  sellPrice: 0

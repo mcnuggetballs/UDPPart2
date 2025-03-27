@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: FlammieDrum
   m_EditorClassIdentifier: 
-  questItem: 0
+  questItem: 1
   itemName: Flammie Drum
   itemDesc: A legendary instrument imbued with sky magic.
-  itemStatBonus: +30 DMG_+10 Max MP
+  itemStatBonus: -Restricted Item_+30 DMG_+10 Max MP
   itemImage: {fileID: 21300000, guid: 1fe7b5db2b0217a4c8f21a3e4cc7a5b7, type: 3}
   quantity: 0
-  cost: 150
-  sellPrice: 75
+  cost: 0
+  sellPrice: 0

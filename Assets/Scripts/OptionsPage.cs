@@ -189,11 +189,11 @@ public class OptionsPage : Page {
         {
             UpdateButton(null);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             UIManager.Instance.SetCurrentPage(UIManager.Instance._buyPage);
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             UIManager.Instance.SetCurrentPage(UIManager.Instance._leavePage);
         }

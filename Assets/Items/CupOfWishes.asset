@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: CupOfWishes
   m_EditorClassIdentifier: 
+  questItem: 0
   itemName: Cup Of Wishes
   itemDesc: A mystical chalice said to grant miracles to those in need.
-  itemStatBonus: +Full HP_+Full MP
+  itemStatBonus: +100 HP_+100 MP
   itemImage: {fileID: 21300000, guid: 4e008b6906974784bbfa80cd9ab6e7ea, type: 3}
   quantity: 0
-  cost: 300
-  sellPrice: 150
+  cost: 150
+  sellPrice: 75
