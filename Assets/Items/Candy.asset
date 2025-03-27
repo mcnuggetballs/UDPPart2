@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: Candy
   m_EditorClassIdentifier: 
+  questItem: 0
   itemName: Candy
   itemDesc: A small sweet that melts in your mouth, filling you with energy.
   itemStatBonus: +10 HP
+  characterList: -1
   itemImage: {fileID: 21300000, guid: f8ba6fdbff5aac0488885891d43ffa44, type: 3}
   quantity: 0
   cost: 10

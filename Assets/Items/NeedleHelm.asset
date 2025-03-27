@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
-  m_Name: FlammieDrum
+  m_Name: NeedleHelm
   m_EditorClassIdentifier: 
-  questItem: 1
-  itemName: Flammie Drum
-  itemDesc: A legendary instrument imbued with sky magic.
-  itemStatBonus: -Restricted Item
+  questItem: 0
+  itemName: Needle Helm
+  itemDesc: An odd helm embedded with tiny, enchanted needles. Enemies think twice
+    before striking.
+  itemStatBonus: +50 Defense_Reflects 30% DMG
   characterList: -1
-  itemImage: {fileID: 21300000, guid: 1fe7b5db2b0217a4c8f21a3e4cc7a5b7, type: 3}
+  itemImage: {fileID: 7277357708302045520, guid: dce9c914ae30ad746a430bc15268d5ac, type: 3}
   quantity: 0
-  cost: 0
-  sellPrice: 0
+  cost: 30000
+  sellPrice: 15000

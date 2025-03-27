@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
-  m_Name: FlammieDrum
+  m_Name: HairRibbon
   m_EditorClassIdentifier: 
-  questItem: 1
-  itemName: Flammie Drum
-  itemDesc: A legendary instrument imbued with sky magic.
-  itemStatBonus: -Restricted Item
-  characterList: -1
-  itemImage: {fileID: 21300000, guid: 1fe7b5db2b0217a4c8f21a3e4cc7a5b7, type: 3}
+  questItem: 0
+  itemName: Hair Ribbon
+  itemDesc: A charming ribbon that shimmers with hidden power.
+  itemStatBonus: +1 Defense_+1 Magic Defense_+2 Charisma
+  characterList: 2
+  itemImage: {fileID: -8035116567771300833, guid: c2c1c32f56c6227409df4100ee610eb0, type: 3}
   quantity: 0
-  cost: 0
-  sellPrice: 0
+  cost: 55
+  sellPrice: 25

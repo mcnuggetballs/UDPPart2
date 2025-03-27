@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
-  m_Name: FlammieDrum
+  m_Name: QuiltedHood
   m_EditorClassIdentifier: 
-  questItem: 1
-  itemName: Flammie Drum
-  itemDesc: A legendary instrument imbued with sky magic.
-  itemStatBonus: -Restricted Item
-  characterList: -1
-  itemImage: {fileID: 21300000, guid: 1fe7b5db2b0217a4c8f21a3e4cc7a5b7, type: 3}
+  questItem: 0
+  itemName: Quilted Hood
+  itemDesc: A padded hood ideal for tough expeditions and experienced adventurers.
+  itemStatBonus: +12 Defense_+3% Evasion
+  characterList: 6
+  itemImage: {fileID: -4385367530321230166, guid: 6a8b9a02d6b762440805b1e3bd9136b0, type: 3}
   quantity: 0
-  cost: 0
-  sellPrice: 0
+  cost: 700
+  sellPrice: 350

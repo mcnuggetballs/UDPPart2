@@ -42,6 +42,9 @@ public class UIBuyMenu2 : Page
     public Label TotalCost = null;
     public Label MyMoney = null;
     public Label ItemStatDesc = null;
+    public VisualElement Randi = null;
+    public VisualElement Purim = null;
+    public VisualElement Popoi = null;
 
     public int selectedIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -99,6 +102,10 @@ public class UIBuyMenu2 : Page
         TotalCost = _root.Q<Label>("TotalCost");
         MyMoney = _root.Q<Label>("MyMoney");
         ItemStatDesc = _root.Q<Label>("ItemStatDesc");
+        Randi = _root.Q<VisualElement>("Randi");
+        Purim = _root.Q<VisualElement>("Purim");
+        Popoi = _root.Q<VisualElement>("Popoi");
+
 
         HighlightButton(slotList[selectedIndex].itemButton);
 
@@ -458,6 +465,30 @@ public class UIBuyMenu2 : Page
                     }
                     ItemQuantity.text = "1";
                     hasItem = true;
+                    if (theItem.CanBeEquippedBy(Character.Randi))
+                    {
+                        Randi.style.unityBackgroundImageTintColor = new Color(1.0f,1.0f,1.0f,1.0f);
+                    }
+                    else
+                    {
+                        Randi.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+                    }
+                    if (theItem.CanBeEquippedBy(Character.Purim))
+                    {
+                        Purim.style.unityBackgroundImageTintColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    }
+                    else
+                    {
+                        Purim.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+                    }
+                    if (theItem.CanBeEquippedBy(Character.Popoi))
+                    {
+                        Popoi.style.unityBackgroundImageTintColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    }
+                    else
+                    {
+                        Popoi.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+                    }
                 }
             }
         }
@@ -480,6 +511,31 @@ public class UIBuyMenu2 : Page
                     }
                     ItemQuantity.text = "1";
                     hasItem = true;
+
+                    if (theItem.CanBeEquippedBy(Character.Randi))
+                    {
+                        Randi.style.unityBackgroundImageTintColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    }
+                    else
+                    {
+                        Randi.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+                    }
+                    if (theItem.CanBeEquippedBy(Character.Purim))
+                    {
+                        Purim.style.unityBackgroundImageTintColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    }
+                    else
+                    {
+                        Purim.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+                    }
+                    if (theItem.CanBeEquippedBy(Character.Popoi))
+                    {
+                        Popoi.style.unityBackgroundImageTintColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    }
+                    else
+                    {
+                        Popoi.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+                    }
                 }
             }
         }
@@ -491,6 +547,9 @@ public class UIBuyMenu2 : Page
             ItemStatDesc.text = "";
             ItemQuantity.text = "1";
             TotalCost.text = "0g";
+            Randi.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+            Purim.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
+            Popoi.style.unityBackgroundImageTintColor = new Color(93.0f / 255.0f, 93.0f / 255.0f, 93.0f / 255.0f, 255.0f / 255.0f);
         }
     }
     void ShopSlotUpdate()

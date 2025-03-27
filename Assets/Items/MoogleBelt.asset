@@ -16,7 +16,8 @@ MonoBehaviour:
   itemName: Moggle Belt
   itemDesc: A fluffy belt said to be crafted by moogle artisans. Wearing it fills
     the wearer with cheer and lightness of step.
-  itemStatBonus: -Restricted Item_+5% Evasion_+2 Agility
+  itemStatBonus: -Restricted Item
+  characterList: -1
   itemImage: {fileID: 21300000, guid: 8c09ad577b2d5f44e94c9d6e6947b355, type: 3}
   quantity: 0
   cost: 0

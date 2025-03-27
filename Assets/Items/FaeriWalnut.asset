@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: FaeriWalnut
   m_EditorClassIdentifier: 
+  questItem: 0
   itemName: Faeri Walnut
   itemDesc: A rare, walnut infused with fae magic, said to grant a burst of power.
   itemStatBonus: +30 Max MP
+  characterList: -1
   itemImage: {fileID: 21300000, guid: 8558cce50d322b4468d35e44c1567074, type: 3}
   quantity: 0
   cost: 1000

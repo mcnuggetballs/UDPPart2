@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70224e4f08bbcd94e9f85d3270a39763, type: 3}
   m_Name: Chocolate
   m_EditorClassIdentifier: 
+  questItem: 0
   itemName: Chocolate
   itemDesc: A rich and creamy chocolate bar infused with crunchy caramel bits.
   itemStatBonus: +40 HP
+  characterList: -1
   itemImage: {fileID: 21300000, guid: 26233f9f0f795bf48997f0df31a3c0b2, type: 3}
   quantity: 0
   cost: 30

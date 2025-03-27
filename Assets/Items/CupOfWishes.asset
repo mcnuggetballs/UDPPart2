@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: Cup Of Wishes
   itemDesc: A mystical chalice said to grant miracles to those in need.
   itemStatBonus: +100 HP_+100 MP
+  characterList: -1
   itemImage: {fileID: 21300000, guid: 4e008b6906974784bbfa80cd9ab6e7ea, type: 3}
   quantity: 0
   cost: 150

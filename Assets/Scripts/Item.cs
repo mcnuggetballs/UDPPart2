@@ -1,5 +1,14 @@
+using NUnit.Framework;
 using UnityEngine;
 
+[System.Flags]
+public enum Character
+{
+    Randi = 1 << 0,
+    Purim = 1 << 1,
+    Popoi = 1 << 2
+
+}
 [CreateAssetMenu(fileName = "Item", menuName = "Item")]
 public class Item : ScriptableObject
 {
@@ -7,6 +16,7 @@ public class Item : ScriptableObject
     public string itemName;
     public string itemDesc;
     public string itemStatBonus;
+    public Character characterList;
     [SerializeField]
     Sprite itemImage;
     [SerializeField]
@@ -35,5 +45,9 @@ public class Item : ScriptableObject
     public void SetQuantity(int amount)
     {
         quantity = amount;
+    }
+    public bool CanBeEquippedBy(Character theCharacter)
+    {
+        return (characterList & theCharacter) != 0;
     }
 }

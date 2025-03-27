@@ -670,6 +670,20 @@ MonoBehaviour:
     amount: 3
   - theItem: {fileID: 11400000, guid: f2f594eea513e6c49bcdc9d88658a0e8, type: 2}
     amount: 5
+  - theItem: {fileID: 11400000, guid: c96922ea8bdbcb442b63e9850eea7fff, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: 587b4947f91113c4f954527a00fd7aee, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: 8fb84c9e77359a249b47177a9efc3290, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: 14956cd2b974f2641b5d7eb85e0e2cdc, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: f4a7254db29d9ce42afa846bce03a7f1, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: f05b3e6d102e6a147ad85f04d4340d41, type: 2}
+    amount: 3
+  - theItem: {fileID: 11400000, guid: 03413e3aec7706c4e92c47ea99a27ee4, type: 2}
+    amount: 3
   inventoryList:
   - theItem: {fileID: 11400000, guid: add1b650726951a47bb336ba97450756, type: 2}
     amount: 3
