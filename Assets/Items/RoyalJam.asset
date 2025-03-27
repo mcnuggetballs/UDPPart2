@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questItem: 0
   itemName: Royal Jam
-  itemDesc: A luxurious blend of enchanted berries and golden honey. Said to restore
-    strength and spirit with just a spoonful.
+  itemDesc: A luxurious blend of enchanted berries and golden honey.
   itemStatBonus: +Full HP_-Removes Poison
   itemImage: {fileID: 21300000, guid: 1bf78e7f8668af646b8e93c7ae5ce7fc, type: 3}
   quantity: 0

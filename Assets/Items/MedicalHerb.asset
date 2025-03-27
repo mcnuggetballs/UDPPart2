@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questItem: 0
   itemName: Medical Herb
-  itemDesc: A common yet reliable healing herb used by travelers and healers alike.
-    Restores a small amount of HP when consumed.
+  itemDesc: A common yet reliable herb.
   itemStatBonus: +10 MP
   itemImage: {fileID: 21300000, guid: 6f32da2978ce37e408b181d424e052d9, type: 3}
   quantity: 0
