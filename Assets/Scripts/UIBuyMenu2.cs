@@ -45,6 +45,11 @@ public class UIBuyMenu2 : Page
     public VisualElement Randi = null;
     public VisualElement Purim = null;
     public VisualElement Popoi = null;
+    public bool isConfirming = false;
+    public VisualElement ConfirmationMenu = null;
+    public Label ConfirmText = null;
+    public Button CancelConfirmButton = null;
+    public Button ConfirmButton = null;
 
     public int selectedIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -105,7 +110,10 @@ public class UIBuyMenu2 : Page
         Randi = _root.Q<VisualElement>("Randi");
         Purim = _root.Q<VisualElement>("Purim");
         Popoi = _root.Q<VisualElement>("Popoi");
-
+        ConfirmationMenu = _root.Q<VisualElement>("ConfirmationMenu");
+        ConfirmText = _root.Q<Label>("ConfirmText");
+        CancelConfirmButton = _root.Q<Button>("CancelConfirmButton");
+        ConfirmButton = _root.Q<Button>("ConfirmButton");
 
         HighlightButton(slotList[selectedIndex].itemButton);
 
@@ -134,15 +142,12 @@ public class UIBuyMenu2 : Page
 
         DescPanelUpdate();
     }
-
     void DownIndex()
     {
         if (selectedIndex + 7 >= slotList.Count)
         {
             return;
         }
-        if (slotList[selectedIndex].inventorySlot == true)
-            return;
         DehighlightButton(slotList[selectedIndex].itemButton);
         selectedIndex += 7;
         HighlightButton(slotList[selectedIndex].itemButton);
@@ -155,16 +160,8 @@ public class UIBuyMenu2 : Page
         {
             return;
         }
-        if (selectedIndex - 7 >= shopSlots.Count)
-        {
-            DehighlightButton(slotList[selectedIndex].itemButton);
-            selectedIndex = shopSlots.Count-1;
-        }
-        else
-        {
-            DehighlightButton(slotList[selectedIndex].itemButton);
-            selectedIndex -= 7;
-        }
+        DehighlightButton(slotList[selectedIndex].itemButton);
+        selectedIndex -= 7;
         HighlightButton(slotList[selectedIndex].itemButton);
 
         DescPanelUpdate();
@@ -192,121 +189,174 @@ public class UIBuyMenu2 : Page
 
     void ControllerUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (isConfirming == false)
         {
-            NextIndex();
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            BackIndex();
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            UpIndex();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            DownIndex();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
-            Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
-            if (theShopSlot != null)
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
+                NextIndex();
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                BackIndex();
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                UpIndex();
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                DownIndex();
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+                Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+                if (theShopSlot != null)
                 {
-                    Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
-                    if (theItem != null)
+                    if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
                     {
-                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                        if (currentQuantity + 1 <= theItem.GetQuantity())
+                        Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                        if (theItem != null)
                         {
-                            ++currentQuantity;
-                            ItemQuantity.text = currentQuantity.ToString();
+                            int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                            if (currentQuantity + 1 <= theItem.GetQuantity())
+                            {
+                                ++currentQuantity;
+                                ItemQuantity.text = currentQuantity.ToString();
+                            }
+                        }
+                    }
+                }
+                if (theInvSlot != null)
+                {
+                    if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+                    {
+                        Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                        if (theItem != null)
+                        {
+                            int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                            if (currentQuantity + 1 <= theItem.GetQuantity())
+                            {
+                                ++currentQuantity;
+                                ItemQuantity.text = currentQuantity.ToString();
+                            }
                         }
                     }
                 }
             }
-            if (theInvSlot != null)
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+                Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+                Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+                if (theShopSlot != null)
                 {
-                    Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
-                    if (theItem != null)
+                    if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
                     {
-                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                        if (currentQuantity + 1 <= theItem.GetQuantity())
+                        Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                        if (theItem != null)
                         {
-                            ++currentQuantity;
-                            ItemQuantity.text = currentQuantity.ToString();
+                            int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                            if (currentQuantity - 1 >= 1)
+                            {
+                                --currentQuantity;
+                                ItemQuantity.text = currentQuantity.ToString();
+                            }
+                        }
+                    }
+                }
+                if (theInvSlot != null)
+                {
+                    if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+                    {
+                        Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                        if (theItem != null)
+                        {
+                            int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                            if (currentQuantity - 1 >= 1)
+                            {
+                                --currentQuantity;
+                                ItemQuantity.text = currentQuantity.ToString();
+                            }
                         }
                     }
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
-            Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
-            if (theShopSlot != null)
+            if (isConfirming == false)
             {
-                if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
-                {
-                    Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
-                    if (theItem != null)
-                    {
-                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                        if (currentQuantity - 1 >= 1)
-                        {
-                            --currentQuantity;
-                            ItemQuantity.text = currentQuantity.ToString();
-                        }
-                    }
-                }
+                UIManager.Instance.SetCurrentPage(UIManager.Instance._optionsPage);
             }
-            if (theInvSlot != null)
+            else
             {
-                if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
-                {
-                    Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
-                    if (theItem != null)
-                    {
-                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                        if (currentQuantity - 1 >= 1)
-                        {
-                            --currentQuantity;
-                            ItemQuantity.text = currentQuantity.ToString();
-                        }
-                    }
-                }
+                isConfirming = false;
+                ConfirmationMenu.style.display = DisplayStyle.None;
             }
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
-            Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
-            if (theShopSlot != null)
+            if (isConfirming == false)
             {
-                if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
+                isConfirming = true;
+                ConfirmationMenu.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                isConfirming = false;
+                Slot theShopSlot = shopSlots.Find(shopSlot => shopSlot == slotList[selectedIndex]);
+                Slot theInvSlot = invSlots.Find(invSlot => invSlot == slotList[selectedIndex]);
+                if (theShopSlot != null)
                 {
-                    Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
-                    if (theItem != null)
+                    if (GameManager.Instance.shopInventory.GetItemList().Count > theShopSlot.slotIndex)
                     {
-                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                        int totalCost = currentQuantity * theItem.cost;
-                        if (GameManager.Instance.myMoney >= totalCost)
+                        Item theItem = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex];
+                        if (theItem != null)
                         {
-                            GameManager.Instance.myMoney -= totalCost;
-                            GameManager.Instance.myInventory.AddToInventory(theItem, currentQuantity);
-                            GameManager.Instance.shopInventory.RemoveFromInventory(theItem, currentQuantity);
+                            int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                            int totalCost = currentQuantity * theItem.cost;
+                            if (GameManager.Instance.myMoney >= totalCost)
+                            {
+                                GameManager.Instance.myMoney -= totalCost;
+                                GameManager.Instance.myInventory.AddToInventory(theItem, currentQuantity);
+                                GameManager.Instance.shopInventory.RemoveFromInventory(theItem, currentQuantity);
+                                DescPanelUpdate();
+
+                                if (GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex] != null)
+                                {
+                                    if (currentQuantity > GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex].GetQuantity())
+                                    {
+                                        currentQuantity = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex].GetQuantity();
+                                        ItemQuantity.text = currentQuantity.ToString();
+                                    }
+                                }
+                                else
+                                {
+                                    ItemQuantity.text = "0";
+                                }
+                            }
+                        }
+                    }
+                }
+                if (theInvSlot != null)
+                {
+                    if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
+                    {
+                        Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
+                        if (theItem != null && theItem.questItem == false)
+                        {
+                            int currentQuantity = Convert.ToInt32(ItemQuantity.text);
+                            int totalCost = currentQuantity * theItem.sellPrice;
+                            GameManager.Instance.myMoney += totalCost;
+                            GameManager.Instance.shopInventory.AddToInventory(theItem, currentQuantity);
+                            GameManager.Instance.myInventory.RemoveFromInventory(theItem, currentQuantity);
                             DescPanelUpdate();
 
-                            if (GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex] != null)
+                            if (GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex] != null)
                             {
-                                if (currentQuantity > GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex].GetQuantity())
+                                if (currentQuantity > GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex].GetQuantity())
                                 {
-                                    currentQuantity = GameManager.Instance.shopInventory.GetItemList()[theShopSlot.slotIndex].GetQuantity();
+                                    currentQuantity = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex].GetQuantity();
                                     ItemQuantity.text = currentQuantity.ToString();
                                 }
                             }
@@ -317,40 +367,9 @@ public class UIBuyMenu2 : Page
                         }
                     }
                 }
-            }
-            if (theInvSlot != null)
-            {
-                if (GameManager.Instance.myInventory.GetItemList().Count > theInvSlot.slotIndex)
-                {
-                    Item theItem = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex];
-                    if (theItem != null && theItem.questItem == false)
-                    {
-                        int currentQuantity = Convert.ToInt32(ItemQuantity.text);
-                        int totalCost = currentQuantity * theItem.sellPrice;
-                        GameManager.Instance.myMoney += totalCost;
-                        GameManager.Instance.shopInventory.AddToInventory(theItem, currentQuantity);
-                        GameManager.Instance.myInventory.RemoveFromInventory(theItem, currentQuantity);
-                        DescPanelUpdate();
 
-                        if (GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex] != null)
-                        {
-                            if (currentQuantity > GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex].GetQuantity())
-                            {
-                                currentQuantity = GameManager.Instance.myInventory.GetItemList()[theInvSlot.slotIndex].GetQuantity();
-                                ItemQuantity.text = currentQuantity.ToString();
-                            }
-                        }
-                        else
-                        {
-                            ItemQuantity.text = "0";
-                        }
-                    }
-                }
+                ConfirmationMenu.style.display = DisplayStyle.None;
             }
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            UIManager.Instance.SetCurrentPage(UIManager.Instance._optionsPage);
         }
     }
     void TotalCostUpdate()
