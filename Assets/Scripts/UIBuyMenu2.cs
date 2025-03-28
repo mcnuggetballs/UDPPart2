@@ -92,7 +92,6 @@ public class UIBuyMenu2 : Page
             newSlot.quantityText = _root.Q<Label>("InvSlot" + index.ToString() + "Quantity");
             if (newSlot.itemButton == null)
             {
-                Debug.LogError("InvSlot" + index.ToString());
                 finished = true;
                 break;
             }
